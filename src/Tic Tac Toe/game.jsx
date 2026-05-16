@@ -2,37 +2,67 @@ import React, { useState } from "react";
 import circleIcon from "../assets/circle.png";
 import crossIcon from "../assets/cross.png";
 
-let boardData = ["", "", "", "", "", "", "", "", ""];
-
 const Game = () => {
+
+    const [boardData, setBoardData] = useState(Array(9).fill(""));
+    
     const [count, setCount] = useState(0);
+    
     const [lock, setLock] = useState(false);
+    
+    const [refresh, setRefresh] = useState(0);
 
     const toggle = (e, num) => {
+
         if (lock || boardData[num] !== "") {
             return;
         }
+
+        const newBoard = [...boardData];
+
         if (count % 2 === 0) {
             e.target.innerHTML = `<img src="${crossIcon}" alt="X" style="width: 60%; height: 60%;" />`;
-            boardData[num] = "X";
+            newBoard[num] = "X";
             setCount(count + 1);
-        } else {
+        } 
+
+        else {
             e.target.innerHTML = `<img src="${circleIcon}" alt="O" style="width: 60%; height: 60%;" />`;
-            boardData[num] = "O";
+            newBoard[num] = "O";
             setCount(count + 1);
         }
-        checkWin();
+
+        setBoardData(newBoard);
+        
+        checkWin(newBoard);
     };
 
-    const checkWin = () => {
-        if (boardData[0] === boardData[1] && boardData[1] === boardData[2] && boardData[2] !== "") won(boardData[0]);
-        else if (boardData[3] === boardData[4] && boardData[4] === boardData[5] && boardData[5] !== "") won(boardData[3]);
-        else if (boardData[6] === boardData[7] && boardData[7] === boardData[8] && boardData[8] !== "") won(boardData[6]);
-        else if (boardData[0] === boardData[3] && boardData[3] === boardData[6] && boardData[6] !== "") won(boardData[0]);
-        else if (boardData[1] === boardData[4] && boardData[4] === boardData[7] && boardData[7] !== "") won(boardData[1]);
-        else if (boardData[2] === boardData[5] && boardData[5] === boardData[8] && boardData[8] !== "") won(boardData[2]);
-        else if (boardData[0] === boardData[4] && boardData[4] === boardData[8] && boardData[8] !== "") won(boardData[0]);
-        else if (boardData[2] === boardData[4] && boardData[4] === boardData[6] && boardData[6] !== "") won(boardData[2]);
+    const checkWin = (currentBoard) => {
+
+        if (currentBoard[0] === currentBoard[1] && currentBoard[1] === currentBoard[2] && currentBoard[2] !== "") 
+            won(currentBoard[0]);
+
+        else if (currentBoard[3] === currentBoard[4] && currentBoard[4] === currentBoard[5] && currentBoard[5] !== "") 
+            won(currentBoard[3]);
+
+        else if (currentBoard[6] === currentBoard[7] && currentBoard[7] === currentBoard[8] && currentBoard[8] !== "") 
+            won(currentBoard[6]);
+
+        else if (currentBoard[0] === currentBoard[3] && currentBoard[3] === currentBoard[6] && currentBoard[6] !== "") 
+            won(currentBoard[0]);
+
+        else if (currentBoard[1] === currentBoard[4] && currentBoard[4] === currentBoard[7] && currentBoard[7] !== "") 
+            won(currentBoard[1]);
+
+        else if (currentBoard[2] === currentBoard[5] && currentBoard[5] === currentBoard[8] && currentBoard[8] !== "") 
+            won(currentBoard[2]);
+
+        else if (currentBoard[0] === currentBoard[4] && currentBoard[4] === currentBoard[8] && currentBoard[8] !== "") 
+            won(currentBoard[0]);
+
+        else if (currentBoard[2] === currentBoard[4] && currentBoard[4] === currentBoard[6] && currentBoard[6] !== "") 
+            won(currentBoard[2]);
+
         else if (count === 8) {
             setLock(true);
             setTimeout(() => {
@@ -50,16 +80,19 @@ const Game = () => {
 
     const reset = () => {
         setLock(false);
-        boardData = ["", "", "", "", "", "", "", "", ""];
+        setBoardData(Array(9).fill(""));
         setCount(0);
         document.querySelectorAll(".box").forEach((box) => {
             box.innerHTML = "";
         });
+        
+        setRefresh(refresh + 1);
     };
 
     return (
         <div className="game-container">
             <h1 className="title">Tic Tac Toe</h1>
+            
             <div className="board">
                 <div className="row">
                     <div className="box" onClick={(e) => toggle(e, 0)}></div>

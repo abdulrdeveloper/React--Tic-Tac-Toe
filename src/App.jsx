@@ -6,9 +6,7 @@ import Game from "./Tic Tac Toe/game.jsx";
 function App() {
 
   return (
-    <>
     <Game />
-    </>
   );
 }
 
