@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-:root {
+/* Global Theme Variables */\n/* Global Theme Variables */\n:root {
   --gold: #c9a84ca6;
   --gold-light: #e2c97ee0;
   --bg: #0A0A0A;
@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-.game-container {
+/* Main Game Container Styles */\n/* Main Game Container Styles */\n.game-container {
   position: relative;
   z-index: 1;
   max-width: 520px;
@@ -72,7 +72,7 @@ body {
   z-index: 1;
 }
 
-.board {
+/* Board and Grid Styles */\n/* Board and Grid Styles */\n.board {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -105,7 +105,7 @@ body {
   background: #1f1f22;
 }
 
-.reset-btn {
+/* Reset Button Styles */\n/* Reset Button Styles */\n.reset-btn {
   padding: 12px 32px;
   font-size: 1rem;
   color: var(--bg);
@@ -136,3 +136,6 @@ body {
     width: 95%;
   }
 }
+/* End of Styles */
+
+/* End of Styles */

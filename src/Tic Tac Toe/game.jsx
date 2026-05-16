@@ -1,42 +1,48 @@
 import React, { useState } from "react";
-import circleIcon from "../assets/circle.png";
-import crossIcon from "../assets/cross.png";
+import circleIcon from "../assets/circle.png"; // O Player icon // O Player icon
+import crossIcon from "../assets/cross.png"; // X Player icon // X Player icon
 
-let data = ["", "", "", "", "", "", "", "", ""];
+// Array representing the 9 squares of the tic-tac-toe grid
+// Array representing the 9 squares of the tic-tac-toe grid
+let boardData = ["", "", "", "", "", "", "", "", ""];
 
 const Game = () => {
-    let [count, setCount] = useState(0);
-    let [lock, setLock] = useState(false);
+    const [count, setCount] = useState(0);
+    const [lock, setLock] = useState(false);
 
     const toggle = (e, num) => {
-        if (lock || data[num] !== "") {
+        // Handle user interaction with grid boxes
+        // Handle user interaction with grid boxes
+        if (lock || boardData[num] !== "") {
             return;
         }
         if (count % 2 === 0) {
             e.target.innerHTML = `<img src="${crossIcon}" alt="X" style="width: 60%; height: 60%;" />`;
-            data[num] = "X";
+            boardData[num] = "X";
             setCount(count + 1);
         } else {
             e.target.innerHTML = `<img src="${circleIcon}" alt="O" style="width: 60%; height: 60%;" />`;
-            data[num] = "O";
+            boardData[num] = "O";
             setCount(count + 1);
         }
         checkWin();
     };
 
     const checkWin = () => {
-        if (data[0] === data[1] && data[1] === data[2] && data[2] !== "") won(data[0]);
-        else if (data[3] === data[4] && data[4] === data[5] && data[5] !== "") won(data[3]);
-        else if (data[6] === data[7] && data[7] === data[8] && data[8] !== "") won(data[6]);
-        else if (data[0] === data[3] && data[3] === data[6] && data[6] !== "") won(data[0]);
-        else if (data[1] === data[4] && data[4] === data[7] && data[7] !== "") won(data[1]);
-        else if (data[2] === data[5] && data[5] === data[8] && data[8] !== "") won(data[2]);
-        else if (data[0] === data[4] && data[4] === data[8] && data[8] !== "") won(data[0]);
-        else if (data[2] === data[4] && data[4] === data[6] && data[6] !== "") won(data[2]);
+        // Check all possible winning combinations
+        // Check all possible winning combinations
+        if (boardData[0] === boardData[1] && boardData[1] === boardData[2] && boardData[2] !== "") won(boardData[0]);
+        else if (boardData[3] === boardData[4] && boardData[4] === boardData[5] && boardData[5] !== "") won(boardData[3]);
+        else if (boardData[6] === boardData[7] && boardData[7] === boardData[8] && boardData[8] !== "") won(boardData[6]);
+        else if (boardData[0] === boardData[3] && boardData[3] === boardData[6] && boardData[6] !== "") won(boardData[0]);
+        else if (boardData[1] === boardData[4] && boardData[4] === boardData[7] && boardData[7] !== "") won(boardData[1]);
+        else if (boardData[2] === boardData[5] && boardData[5] === boardData[8] && boardData[8] !== "") won(boardData[2]);
+        else if (boardData[0] === boardData[4] && boardData[4] === boardData[8] && boardData[8] !== "") won(boardData[0]);
+        else if (boardData[2] === boardData[4] && boardData[4] === boardData[6] && boardData[6] !== "") won(boardData[2]);
         else if (count === 8) {
             setLock(true);
             setTimeout(() => {
-                alert("It's a draw!");
+                alert("It's a draw! Well played.");
             }, 600);
         }
     };
@@ -49,8 +55,10 @@ const Game = () => {
     };
 
     const reset = () => {
+        // Reset game state and UI
+        // Reset game state and UI
         setLock(false);
-        data = ["", "", "", "", "", "", "", "", ""];
+        boardData = ["", "", "", "", "", "", "", "", ""];
         setCount(0);
         document.querySelectorAll(".box").forEach((box) => {
             box.innerHTML = "";
@@ -60,6 +68,8 @@ const Game = () => {
     return (
         <div className="game-container">
             <h1 className="title">Tic Tac Toe</h1>
+            {/* The 3x3 Game Board */}
+            {/* The 3x3 Game Board */}
 
             <div className="board">
                 <div className="row">
